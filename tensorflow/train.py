@@ -1,15 +1,7 @@
 import tensorflow as tf
-import sys, os, glob
-from model_setup import create_model
+import sys, os
+from model_setup import create_model, get_latest_model_path
 import numpy as np
-
-#Helper function for loading the filename of the latest .ckpt file
-def get_latest_model_path(folder_path:str):
-    list_of_files = glob.glob(folder_path + '/*') # * means all if need specific format then *.csv
-    if(len(list_of_files) < 1):
-        return None
-    latest_file = max(list_of_files, key=os.path.getctime)
-    return latest_file
 
 def train_model(data_filepath:str, training_label:str):
     #Load training data and set training label
@@ -50,7 +42,7 @@ def train_model(data_filepath:str, training_label:str):
 
 #Run train_model() if running train.py from command line
 if __name__ == "__main__":
-    #Pass in absolute training data filepath as first argument
+    #Pass in absolute filepath of training data as first argument
     training_data_filepath = sys.argv[1]
     #Pass in training label as second argument
     training_label = sys.argv[2]
