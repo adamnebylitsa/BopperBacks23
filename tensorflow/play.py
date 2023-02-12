@@ -8,7 +8,8 @@ def create_connection():
     #Create context to create Socket with port 54000
     context = zmq.Context()
     socket = context.Socket(zmq.REQ)
-    socket.connet("tcp://localhost:54000")
+    #Use IPC to create socket connection
+    socket.connet("ipc://localhost:54000")
     return socket
 
 def initialize_model():
@@ -23,6 +24,7 @@ def initialize_model():
 def predict_movement(model, input_data):
     input_data = np.array(input_data)
     pred = model.predict(input_data)
+    return pred
 
 #First, load model most recent model
 #Create link between Python script and Minecraft mod
